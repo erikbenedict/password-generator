@@ -24,7 +24,6 @@ function generatePassword() {
     password = [];
 
     var userInput = prompt('How many characters would you like in your password? Choose between 8 and 128 ');
-
     if (!userInput) {
         alert('This needs a value');
         generatePassword();
@@ -63,9 +62,7 @@ function generatePassword() {
         password.push(indexValue);
     }
     return password.join("");
-
 }
-
 //* Write password to the #password input
 function writePassword() {
   var password = generatePassword();
