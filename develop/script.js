@@ -1,5 +1,3 @@
-// TODO: fix bug- doesn't clear password inputs
-
 // * Array of users choices
 var choicePool = [];
 // * Actual password generated
@@ -21,6 +19,10 @@ var alphaUpper = alphaLower.map(upperCase);
 
 // * Function to generate random password based off user input
 function generatePassword() {
+    // * Resets password/choicePool array
+    choicePool = [];
+    password = [];
+
     var userInput = prompt('How many characters would you like in your password? Choose between 8 and 128 ');
 
     if (!userInput) {
