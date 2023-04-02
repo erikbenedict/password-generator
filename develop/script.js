@@ -1,5 +1,9 @@
+// TODO: fix bug- doesn't clear password inputs
+
 // * Array of users choices
 var choicePool = [];
+// * Actual password generated
+var password = [];
 // * Lowercase Alphabet Characters
 var alphaLower = 'abcdefghijklmnopqrstuvwxyz';
 alphaLower = alphaLower.split('');
@@ -15,23 +19,18 @@ var upperCase = function (letters) {
 };
 var alphaUpper = alphaLower.map(upperCase);
 
-//* Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
-}
-
-// TODO: write function to generate password ^
+// * Function to generate random password based off user input
 function generatePassword() {
-    var charLength = prompt('How many characters would you like in your password? Choose between 8 and 128 ');
+    var userInput = prompt('How many characters would you like in your password? Choose between 8 and 128 ');
 
-    if (!charLength) {
+    if (!userInput) {
         alert('This needs a value');
-    } else if (charLength < 8 || charLength > 128 || isNaN(charLength)) {
-        charLength = prompt("You must choose between 8-128 and it must be a number");
+        generatePassword();
+        return;
+    }
+    if (userInput < 8 || userInput > 128 || isNaN(userInput)) {
+        alert("You must choose between 8-128 and it must be a number");
+        generatePassword();
         return;
     }
 
@@ -40,12 +39,10 @@ function generatePassword() {
     var confirmNumbers = confirm('Will this password contain numbers?');
     var confirmSpecial = confirm('Will this password contain special characters?');
 
-
     if (!confirmLowercase && !confirmUppercase && !confirmNumbers && !confirmSpecial) {
         alert('You must choose one criteria');
         generatePassword();
     } 
-
     if (confirmLowercase) {
         choicePool = choicePool.concat(alphaLower);
     }
@@ -58,7 +55,6 @@ function generatePassword() {
     if (confirmSpecial) {
         choicePool = choicePool.concat(special)
     }
-
     for (var i = 0; i < userInput; i++) { 
         var randomIndex = Math.floor(Math.random() * choicePool.length);
         var indexValue = choicePool[randomIndex];
@@ -68,6 +64,12 @@ function generatePassword() {
 
 }
 
+//* Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
 //* Add event listener to generate button
 var generateBtn = document.querySelector("#generate");
 generateBtn.addEventListener("click", writePassword);
