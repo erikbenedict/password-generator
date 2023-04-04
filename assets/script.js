@@ -26,12 +26,10 @@ function generatePassword() {
     var userInput = prompt('How many characters would you like in your password? Choose between 8 and 128 ');
     if (!userInput) {
         alert('This needs a value');
-        // generatePassword();
         return null;
     }
     if (userInput < 8 || userInput > 128 || isNaN(userInput)) {
         alert("You must choose between 8-128 and it must be a number");
-        // generatePassword();
         return null;
     }
 
